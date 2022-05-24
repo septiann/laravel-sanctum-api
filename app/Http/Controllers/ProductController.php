@@ -54,12 +54,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
-            'price' => 'required|numeric'
-        ]);
-
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
@@ -74,7 +68,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return Product::destroy($id);
+        Product::destroy($id);
+
+        return response([
+            'message' => 'Delete product success'
+        ], 200);
     }
 
     /**
